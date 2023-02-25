@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Taller Practico I - DSM</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+</resources>

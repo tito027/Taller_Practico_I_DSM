@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Taller Practico I">
+        <menu>
+            <item android:id="@+id/nav_exercise_one"
+                android:icon="@drawable/baseline_text_snippet_24"
+                android:title="Calcular Promedio" />
+
+            <item android:id="@+id/nav_exercise_two"
+                android:icon="@drawable/baseline_monetization_on_24"
+                android:title="Salario Neto" />
+
+            <item android:id="@+id/nav_exercise_three"
+                android:icon="@drawable/baseline_calculate_24"
+                android:title="Calculadora Básica" />
+        </menu>
+    </item>
+</menu>
