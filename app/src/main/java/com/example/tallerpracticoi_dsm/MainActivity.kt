@@ -1,5 +1,6 @@
 package com.example.tallerpracticoi_dsm
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.nav_exercise_one -> Toast.makeText(this, "Item 1", Toast.LENGTH_SHORT).show()
+            R.id.nav_exercise_one -> startActivity(Intent(this@MainActivity, CalculadoraActivity::class.java))
             R.id.nav_exercise_two -> Toast.makeText(this, "Item 2", Toast.LENGTH_SHORT).show()
-            R.id.nav_exercise_three -> Toast.makeText(this, "Item 3", Toast.LENGTH_SHORT).show()
+            R.id.nav_exercise_three -> startActivity(Intent(this@MainActivity, CalculadoraActivity::class.java))
         }
 
         drawer.closeDrawer(GravityCompat.START)
