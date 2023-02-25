@@ -22,10 +22,6 @@ class CalculadoraActivity : AppCompatActivity() {
         return isValid
     }
     private fun operate(): String {
-        println("********************")
-        println("Operador $this.operator")
-        println("Operador num1")
-        println("********************")
         return when(this.operator) {
             '+' -> (num1 + num2).toString()
             '-' -> (num1 - num2).toString()
