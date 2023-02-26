@@ -4,19 +4,23 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var averageScoreView: FragmentContainerView
+    private lateinit var calculatorView: FragmentContainerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +30,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        averageScoreView = findViewById(R.id.averageScoreView)
+        calculatorView = findViewById(R.id.calculatorView)
         drawer.addDrawerListener(toggle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -39,9 +44,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.nav_exercise_one -> startActivity(Intent(this@MainActivity, CalculadoraActivity::class.java))
+            R.id.nav_exercise_one -> {
+                averageScoreView.isVisible = true
+                calculatorView.isVisible = false
+            }
             R.id.nav_exercise_two -> Toast.makeText(this, "Item 2", Toast.LENGTH_SHORT).show()
-            R.id.nav_exercise_three -> startActivity(Intent(this@MainActivity, CalculadoraActivity::class.java))
+            R.id.nav_exercise_three -> {
+                averageScoreView.isVisible = false
+                calculatorView.isVisible = true
+            }
         }
 
         drawer.closeDrawer(GravityCompat.START)

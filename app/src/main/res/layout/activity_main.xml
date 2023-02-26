@@ -14,6 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/averageScoreView"
+        android:name="com.example.tallerpracticoi_dsm.AverageScoreFragment"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_average_score" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/calculatorView"
+        android:name="com.example.tallerpracticoi_dsm.CalculatorFragment"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        tools:layout="@layout/fragment_calculator" />
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
