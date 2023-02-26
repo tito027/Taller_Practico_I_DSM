@@ -13,7 +13,20 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Calculadora"
+                android:textSize="20dp"
+                android:textAlignment="gravity"
+                android:gravity="center_vertical"
+                />
 
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="34dp"
@@ -80,22 +93,19 @@
                     app:backgroundTint="@color/white_soft" />
 
                 <Button
-                    android:id="@+id/btnDelete"
+                    android:id="@+id/btnReset"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="125dp"
                     android:layout_height="match_parent"
                     android:backgroundTintMode="add"
                     android:isScrollContainer="false"
-                    android:paddingLeft="40dp"
                     android:pointerIcon="all_scroll"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="150px"
+                    android:textColor="@color/black_soft"
+                    android:textSize="100px"
                     app:backgroundTint="@color/grey_soft"
-                    app:icon="@android:drawable/ic_input_delete"
-                    app:iconPadding="0dp"
-                    app:iconSize="50dp"
-                    app:iconTint="@color/black_soft" />
+                    android:text="AC"
+                    />
             </TableRow>
 
             <TableRow

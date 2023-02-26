@@ -21,7 +21,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CalculatorFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -98,11 +97,23 @@ class CalculatorFragment : Fragment() {
             if (!this.validNum()) return@setOnClickListener
             num2 = iptNum.text.toString().toDouble()
             val result = this.operate()
+            this.reset()
             txtResult.text = " $num1 $operator $num2 = $result"
-            iptNum.setText("")
-            isSecond = false
+        }
+
+        // btnReset
+        val btnReset = requireView().findViewById<Button>(R.id.btnReset)
+        btnReset.setOnClickListener {
+            this.reset()
         }
     }
+
+    private fun reset() {
+        iptNum.setText("")
+        isSecond = false
+        txtResult.text = ""
+    }
+
 
     companion object {
         /**

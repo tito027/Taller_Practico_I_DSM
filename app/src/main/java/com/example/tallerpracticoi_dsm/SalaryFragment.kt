@@ -1,25 +1,37 @@
 package com.example.tallerpracticoi_dsm
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.tallerpracticoi_dsm.databinding.FragmentSalaryBinding
 import kotlin.math.roundToInt
 
-class Salary : AppCompatActivity() {
+/**
+ * An example full-screen fragment that shows and hides the system UI (i.e.
+ * status bar and navigation/system bar) with user interaction.
+ */
+class SalaryFragment : Fragment() {
+    private val hideHandler = Handler(Looper.myLooper()!!)
     lateinit var btnCalculate: Button
 
     private fun getLabels(): List<TextView> {
         val ids = arrayOf(R.id.txtISSSResponse, R.id.txtAFPResponse, R.id.txtRentaResponse, R.id.txtDescuentosResponse, R.id.txtTotal)
-        return ids.map { findViewById(it) }
+        return ids.map { requireView().findViewById(it) }
     }
 
     private fun calculate() {
-        val iptName = findViewById<EditText>(R.id.iptName)
-        val iptSalary = findViewById<EditText>(R.id.iptSalary)
+        val iptName = requireView().findViewById<EditText>(R.id.iptName)
+        val iptSalary = requireView().findViewById<EditText>(R.id.iptSalary)
         val salary = iptSalary.text.toString().toDouble()
         val descs: Array<Double> = arrayOf( if(salary > 1000) 30.0 else salary * .03, salary * .0725, 0.0)
 
@@ -37,15 +49,21 @@ class Salary : AppCompatActivity() {
         labels[4].text = "$" +((total * 100).roundToInt().toDouble() / 100)
 
 
-        findViewById<TextView>(R.id.txtNameResult).text = "Resultado de cálculos para " + iptName.text.toString()
-        findViewById<LinearLayout>(R.id.resultContainer).visibility = View.VISIBLE
+        requireView().findViewById<TextView>(R.id.txtNameResult).text = "Resultado de cálculos para " + iptName.text.toString()
+        requireView().findViewById<LinearLayout>(R.id.resultContainer).visibility = View.VISIBLE
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            btnCalculate = requireView().findViewById<Button>(R.id.btnCalculate)
+            btnCalculate.setOnClickListener { calculate() }
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_salary)
-        btnCalculate = findViewById<Button>(R.id.btnCalculate)
-        btnCalculate.setOnClickListener({ calculate() })
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_salary, container, false)
     }
 }

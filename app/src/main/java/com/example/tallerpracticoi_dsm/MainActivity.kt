@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var averageScoreView: FragmentContainerView
     private lateinit var calculatorView: FragmentContainerView
+    private lateinit var salaryView: FragmentContainerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         averageScoreView = findViewById(R.id.averageScoreView)
         calculatorView = findViewById(R.id.calculatorView)
+        salaryView = findViewById(R.id.salaryView)
         drawer.addDrawerListener(toggle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,11 +49,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_exercise_one -> {
                 averageScoreView.isVisible = true
                 calculatorView.isVisible = false
+                salaryView.isVisible = false
             }
-            R.id.nav_exercise_two -> Toast.makeText(this, "Item 2", Toast.LENGTH_SHORT).show()
+            R.id.nav_exercise_two -> {
+                averageScoreView.isVisible = false
+                calculatorView.isVisible = false
+                salaryView.isVisible = true
+
+            }
             R.id.nav_exercise_three -> {
                 averageScoreView.isVisible = false
                 calculatorView.isVisible = true
+                salaryView.isVisible = false
             }
         }
 

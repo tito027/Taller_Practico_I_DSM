@@ -4,4 +4,6 @@
     <string name="navigation_drawer_close">Cerrar</string>
     <string name="btnText">Calcular</string>
     <string name="response">Resultado de Cálculos</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
