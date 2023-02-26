@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tallerpracticoi_dsm.databinding.FragmentSalaryBinding
@@ -32,7 +29,8 @@ class SalaryFragment : Fragment() {
     private fun calculate() {
         val iptName = requireView().findViewById<EditText>(R.id.iptName)
         val iptSalary = requireView().findViewById<EditText>(R.id.iptSalary)
-        val salary = iptSalary.text.toString().toDouble()
+        val salary = if(iptSalary.text.isNotEmpty()) iptSalary.text.toString().toDouble() else 0.0
+        if(iptName.text.isEmpty() || iptSalary.text.isEmpty() || salary < 0) return Toast.makeText(activity, "Ingrese correctamente los parámetros", Toast.LENGTH_SHORT).show()
         val descs: Array<Double> = arrayOf( if(salary > 1000) 30.0 else salary * .03, salary * .0725, 0.0)
 
         val benefits: Double = descs.fold(salary) { acc, desc -> acc - desc }

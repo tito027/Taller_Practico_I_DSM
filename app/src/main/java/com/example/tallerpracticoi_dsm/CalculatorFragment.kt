@@ -26,6 +26,7 @@ class CalculatorFragment : Fragment() {
 
     lateinit var iptNum: EditText
     lateinit var txtResult: TextView
+    lateinit var txtIndication: TextView
     private var num1: Double = 0.0
     private var num2: Double = 0.0
     private var isSecond: Boolean = false
@@ -56,6 +57,7 @@ class CalculatorFragment : Fragment() {
         else if(isSecond) return Toast.makeText(activity, "No puede sumar otra cantidad", Toast.LENGTH_SHORT).show()
         num1 = iptNum.text.toString().toDouble()
         iptNum.setText("")
+        txtIndication.text = "Ingrese el segundo número: "
         operator = op
         isSecond = true
     }
@@ -87,6 +89,8 @@ class CalculatorFragment : Fragment() {
         iptNum = requireView().findViewById(R.id.iptNumber1)
         // iptResult
         txtResult = requireView().findViewById(R.id.txtResult)
+        // txtIndication
+        txtIndication = requireView().findViewById(R.id.txtIndication)
         // btn
         val buttons: Map<Char, Button> = getButtons()
         buttons.forEach { (c, button) -> button.setOnClickListener { setOperate(c) } }
@@ -112,6 +116,7 @@ class CalculatorFragment : Fragment() {
         iptNum.setText("")
         isSecond = false
         txtResult.text = ""
+        txtIndication.text = "Ingrese el primer número:"
     }
 
 
