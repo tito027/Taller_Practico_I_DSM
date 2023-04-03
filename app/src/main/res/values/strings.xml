@@ -6,4 +6,7 @@
     <string name="response">Resultado de Cálculos</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="ya_posees_una_cuenta">¿Ya posees una cuenta?</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="correo_electr_nico">Correo Electrónico</string>
 </resources>
