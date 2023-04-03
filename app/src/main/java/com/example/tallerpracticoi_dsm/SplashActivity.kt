@@ -13,6 +13,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }, 9000) // espera 2 segundos antes de pasar a MainActivity
+        }, 20000) // espera 2 segundos antes de pasar a MainActivity
     }
 }
