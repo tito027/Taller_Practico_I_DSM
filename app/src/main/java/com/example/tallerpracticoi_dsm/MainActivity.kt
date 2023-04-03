@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Thread.sleep(20000)
+        //Cargar el tema por defecto
+        setTheme(R.style.Theme_TallerPracticoIDSM)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
