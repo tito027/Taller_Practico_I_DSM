@@ -19,8 +19,17 @@
         android:name="com.example.tallerpracticoi_dsm.AverageScoreFragment"
         android:layout_marginTop="60dp"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_average_score" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/students_score"
+        android:name="com.example.tallerpracticoi_dsm.StudentsScore"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_students_score" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/calculatorView"

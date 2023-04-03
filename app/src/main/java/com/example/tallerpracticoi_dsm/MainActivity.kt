@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var averageScoreView: FragmentContainerView
     private lateinit var calculatorView: FragmentContainerView
     private lateinit var salaryView: FragmentContainerView
+    private lateinit var studentScoreView: FragmentContainerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        studentScoreView = findViewById(R.id.students_score)
         averageScoreView = findViewById(R.id.averageScoreView)
         calculatorView = findViewById(R.id.calculatorView)
         salaryView = findViewById(R.id.salaryView)
@@ -47,9 +49,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_exercise_one -> {
-                averageScoreView.isVisible = true
+                studentScoreView.isVisible = true
                 calculatorView.isVisible = false
                 salaryView.isVisible = false
+                averageScoreView.isVisible = false
             }
             R.id.nav_exercise_two -> {
                 averageScoreView.isVisible = false

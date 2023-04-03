@@ -7,6 +7,7 @@ class StudentDTO {
     var grade: List<Double>? = null
     var avg: Double? = null
 
+    fun key(key: String?) {}
     constructor() {}
 
     constructor(name: String?, grade: Array<Double>?) {

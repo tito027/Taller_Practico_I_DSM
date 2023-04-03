@@ -62,7 +62,7 @@ class AverageScoreFragment : Fragment() {
       param2 = it.getString(ARG_PARAM2)
     }
     database  = FirebaseDatabase.getInstance()
-    students = database.reference
+    students = database.getReference("students")
   }
 
   override fun onCreateView(
@@ -138,9 +138,7 @@ class AverageScoreFragment : Fragment() {
 
       println("***** MY DATA *****")
       println(studentData.toMap())
-      val key =   students.push().key!!
-      println(key)
-      students.child(key).setValue("prueba")
+      students.child(name).setValue(studentData)
         .addOnCanceledListener {
           println("****** CANCEL ******")
         }
