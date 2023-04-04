@@ -6,21 +6,18 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.tallerpracticoi_dsm.databinding.FragmentSalaryBinding
 import com.example.tallerpracticoi_dsm.dto.WorkerDTO
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.math.roundToInt
 
-/**
- * An example full-screen fragment that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class SalaryFragment : Fragment() {
+    private var name: String? = null
+    private var netSalary:  Double? = null
+    private var salary:  Double? = null
+
     private val hideHandler = Handler(Looper.myLooper()!!)
     lateinit var btnCalculate: Button
     private lateinit var database: FirebaseDatabase
@@ -47,7 +44,7 @@ class SalaryFragment : Fragment() {
 
     }
 
-    private fun calculate() {
+    private fun calculate(saveFlag: Boolean? = false) {
         val iptName = requireView().findViewById<EditText>(R.id.iptName)
         val iptSalary = requireView().findViewById<EditText>(R.id.iptSalary)
         val salary = if(iptSalary.text.isNotEmpty()) iptSalary.text.toString().toDouble() else 0.0
@@ -71,7 +68,7 @@ class SalaryFragment : Fragment() {
         requireView().findViewById<TextView>(R.id.txtNameResult).text = "Resultado de cálculos para " + iptName.text.toString()
         requireView().findViewById<LinearLayout>(R.id.resultContainer).visibility = View.VISIBLE
 
-        save(
+        if(saveFlag != null && saveFlag) save(
             iptName.text.toString(),
             salary,
             (total * 100).roundToInt().toDouble() / 100
@@ -80,13 +77,27 @@ class SalaryFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            name = it.getString(NAME)
+            netSalary = it.getDouble(NET_SALARY)
+            salary = it.getDouble(SALARY)
+        }
         database = FirebaseDatabase.getInstance()
         workers = database.getReference("workers")
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             btnCalculate = requireView().findViewById<Button>(R.id.btnCalculate)
-            btnCalculate.setOnClickListener { calculate() }
+            btnCalculate.setOnClickListener { calculate(true) }
+
+        if(arguments != null) {
+            val iptName = requireView().findViewById<EditText>(R.id.iptName)
+            val iptSalary = requireView().findViewById<EditText>(R.id.iptSalary)
+            iptName.setText(name)
+            iptName.isEnabled = false
+            iptSalary.setText(salary.toString())
+            calculate()
+        }
     }
 
     override fun onCreateView(
@@ -95,5 +106,20 @@ class SalaryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_salary, container, false)
+    }
+    companion object {
+
+        private val NAME = "name"
+        private var NET_SALARY = "netSalary"
+        private var SALARY = "salary"
+        fun newInstance(name: String, netSalary: Double, salary: Double) =
+            AverageScoreFragment().apply {
+                arguments = Bundle().apply {
+                    putString(NAME, name)
+                    putDouble(NET_SALARY, netSalary)
+                    putDouble(SALARY, salary)
+                }
+            }
+
     }
 }

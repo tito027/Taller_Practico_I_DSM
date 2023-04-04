@@ -10,16 +10,15 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import com.example.tallerpracticoi_dsm.adapters.StudentAdapter
-import com.example.tallerpracticoi_dsm.dto.StudentDTO
+import com.example.tallerpracticoi_dsm.adapters.WorkerAdapter
+import com.example.tallerpracticoi_dsm.dto.WorkerDTO
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 
-
-class StudentsScore : Fragment() {
-  val getStudentsScore: Query = students.orderByChild("name")
-  var dataStudents: MutableList<StudentDTO>? = null
-  private lateinit var listStudentsView: ListView
+class WorkerList : Fragment() {
+  val getWorkersScore: Query = workers.orderByChild("name")
+  var dataWorkers: MutableList<WorkerDTO>? = null
+  private lateinit var listWorkersView: ListView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -30,15 +29,15 @@ class StudentsScore : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_students_score, container, false)
+    return inflater.inflate(R.layout.fragment_employee_list, container, false)
   }
 
-  fun goToCreate(student: StudentDTO? = null) {
+  fun goToCreate(employee: WorkerDTO? = null) {
     val transaction = requireActivity()!!.supportFragmentManager.beginTransaction()
     transaction.remove(this)
-    val fragment = AverageScoreFragment()
-    if(student != null) {
-      fragment.arguments = bundleOf("name" to student.name, "grade" to student.grade?.toDoubleArray(), "avg" to student.avg)
+    val fragment = SalaryFragment()
+    if(employee != null) {
+      fragment.arguments = bundleOf("name" to employee?.name, "salary" to employee?.baseSalary, "netSalary" to employee?.netSalary)
     }
     transaction.replace(R.id.frameLayout, fragment)
     transaction.commit()
@@ -46,28 +45,30 @@ class StudentsScore : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
     // Components
-    val fabAdd: FloatingActionButton = requireView().findViewById<FloatingActionButton>(R.id.fabAdd)
-    listStudentsView = requireView().findViewById(R.id.listStudents)
+    val fabAdd: FloatingActionButton = requireView().findViewById(R.id.fabAdd)
+    listWorkersView = requireView().findViewById(R.id.listWorkers)
 
     fabAdd.setOnClickListener(View.OnClickListener {
       goToCreate()
     })
 
     // Definitions
-    dataStudents = ArrayList<StudentDTO>()
+    dataWorkers = ArrayList<WorkerDTO>()
 
     // Event Listeners
-    listStudentsView!!.setOnItemClickListener { adapterView, view, i, l ->
-      goToCreate(dataStudents!![i])
+    listWorkersView!!.setOnItemClickListener { adapterView, view, i, l ->
+      goToCreate(dataWorkers!![i])
     }
-    listStudentsView!!.onItemLongClickListener =
+
+    listWorkersView!!.onItemLongClickListener =
       AdapterView.OnItemLongClickListener { adapterView, view, position, l ->
         val ad = AlertDialog.Builder(activity)
         ad.setMessage("Está seguro de eliminar el registro?").setTitle("Confirmación")
         ad.setPositiveButton("Si") {dialog, id ->
-          dataStudents!![position].name?.let {
-            students.child(it).removeValue()
+          dataWorkers!![position].name?.let {
+            workers.child(it).removeValue()
           }
           Toast.makeText(activity, "Registro eliminado!", Toast.LENGTH_SHORT).show()
         }
@@ -76,29 +77,30 @@ class StudentsScore : Fragment() {
         return@OnItemLongClickListener true
       }
 
-    getStudentsScore.addValueEventListener(object : ValueEventListener {
+    getWorkersScore.addValueEventListener(object : ValueEventListener {
       override fun onDataChange(snapshot: DataSnapshot) {
-        dataStudents!!.removeAll(dataStudents!!)
+        dataWorkers!!.removeAll(dataWorkers!!)
 
         for(data in snapshot.children) {
-          val student: StudentDTO? = data.getValue(StudentDTO::class.java)
-          student?.key(data.key)
-          if(student != null) dataStudents!!.add(student)
+          val worker: WorkerDTO? = data.getValue(WorkerDTO::class.java)
+          worker?.key(data.key)
+          if(worker != null) dataWorkers!!.add(worker)
         }
-        val adapter = activity?.let { StudentAdapter(it, dataStudents!!) }
-        listStudentsView!!.adapter = adapter
+        val adapter = activity?.let { WorkerAdapter(it, dataWorkers!!) }
+        listWorkersView!!.adapter = adapter
       }
 
       override fun onCancelled(error: DatabaseError) {}
     })
+
+
   }
 
   companion object {
     var database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    var students: DatabaseReference = database.getReference("students")
-
+    var workers: DatabaseReference = database.getReference("workers")
     fun newInstance(param1: String, param2: String) =
-      StudentsScore().apply {
+      WorkerList().apply {
       }
   }
 }

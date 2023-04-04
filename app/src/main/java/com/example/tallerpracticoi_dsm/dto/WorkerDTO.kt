@@ -5,11 +5,15 @@ class WorkerDTO {
     var baseSalary: Double? = null
     var netSalary: Double? = null
 
+    fun key(key: String?) {}
+    constructor() {}
     constructor(name: String?, baseSalary: Double?, netSalary: Double?) {
         this.name = name
         this.baseSalary = baseSalary
         this.netSalary = netSalary
+
     }
+
 
     fun toMap(): Map<String, Any?> {
         return mapOf(

@@ -1,18 +1,14 @@
 package com.example.tallerpracticoi_dsm
 
-import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -40,11 +36,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = supportFragmentManager.beginTransaction()
         drawer = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-
-        //studentScoreView = findViewById(R.id.students_score)
-        //averageScoreView = findViewById(R.id.averageScoreView)
-        //calculatorView = findViewById(R.id.calculatorView)
-        //salaryView = findViewById(R.id.salaryView)
         transaction.replace(R.id.frameLayout, StudentsScore())
         transaction.commit()
         drawer.addDrawerListener(toggle)
@@ -63,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.replace(R.id.frameLayout, StudentsScore())
             }
             R.id.nav_exercise_two -> {
-                transaction.replace(R.id.frameLayout, SalaryFragment())
+                transaction.replace(R.id.frameLayout, WorkerList())
             }
             R.id.nav_exercise_three -> {
                 transaction.replace(R.id.frameLayout, CalculatorFragment())
