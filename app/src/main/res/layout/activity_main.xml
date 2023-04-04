@@ -14,6 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+    <!--
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/averageScoreView"
         android:name="com.example.tallerpracticoi_dsm.AverageScoreFragment"
@@ -55,6 +62,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         tools:layout="@layout/fragment_salary" />
+        -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"

@@ -10,14 +10,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentContainerView
-import androidx.viewbinding.ViewBindings
+import androidx.core.os.bundleOf
 import com.example.tallerpracticoi_dsm.adapters.StudentAdapter
 import com.example.tallerpracticoi_dsm.dto.StudentDTO
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,10 +36,6 @@ class StudentsScore : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    arguments?.let {
-      param1 = it.getString(ARG_PARAM1)
-      param2 = it.getString(ARG_PARAM2)
-    }
   }
 
   override fun onCreateView(
@@ -53,11 +46,15 @@ class StudentsScore : Fragment() {
     return inflater.inflate(R.layout.fragment_students_score, container, false)
   }
 
-  fun goToCreate() {
-    val createFragment= requireView().rootView.findViewById<FragmentContainerView>(R.id.averageScoreView)
-    val listFragment: FragmentContainerView? = requireView().rootView.findViewById<FragmentContainerView>(R.id.students_score)
-    createFragment!!.isVisible = true
-    listFragment!!.isVisible = false
+  fun goToCreate(student: StudentDTO? = null) {
+    val transaction = requireActivity()!!.supportFragmentManager.beginTransaction()
+    transaction.remove(this)
+    val fragment = AverageScoreFragment()
+    if(student != null) {
+      fragment.arguments = bundleOf("name" to student.name, "grade" to student.grade?.toDoubleArray(), "avg" to student.avg)
+    }
+    transaction.replace(R.id.frameLayout, fragment)
+    transaction.commit()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,7 +71,7 @@ class StudentsScore : Fragment() {
     dataStudents = ArrayList<StudentDTO>()
 
     listStudentsView!!.setOnItemClickListener { adapterView, view, i, l ->
-      goToCreate()
+      goToCreate(dataStudents!![i])
     }
     listStudentsView!!.onItemLongClickListener =
       AdapterView.OnItemLongClickListener { adapterView, view, position, l ->

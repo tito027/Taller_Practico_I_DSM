@@ -1,6 +1,7 @@
 package com.example.tallerpracticoi_dsm
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +27,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class AverageScoreFragment : Fragment() {
   // TODO: Rename and change types of parameters
-  private var param1: String? = null
-  private var param2: String? = null
+  private var name: String? = null
+  private var grade:  DoubleArray? = null
+  private var avg:  Double? = null
+
 
   // Declarando variables
   private lateinit var txtName: EditText
@@ -58,8 +61,9 @@ class AverageScoreFragment : Fragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     arguments?.let {
-      param1 = it.getString(ARG_PARAM1)
-      param2 = it.getString(ARG_PARAM2)
+      name = it.getString(NAME)
+      grade = it.getDoubleArray(GRADE)
+      avg = it.getDouble(AVG)
     }
     database  = FirebaseDatabase.getInstance()
     students = database.getReference("students")
@@ -76,6 +80,10 @@ class AverageScoreFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    println("*********** PRUEBA MODIFIED **************8")
+    println(name)
+    println(grade)
+    println(avg)
     // Inicializando variables
     txtName = requireView().findViewById(R.id.txtName)
     txtRating1 = requireView().findViewById(R.id.txtRating1)
@@ -161,22 +169,17 @@ class AverageScoreFragment : Fragment() {
 
   companion object {
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AverageScoreFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    @JvmStatic
-    fun newInstance(param1: String, param2: String) =
+    private val NAME = "name"
+    private var GRADE = "grade"
+    private var AVG = "avg"
+    fun newInstance(name: String, grade: DoubleArray, avg: Double) =
       AverageScoreFragment().apply {
         arguments = Bundle().apply {
-          putString(ARG_PARAM1, param1)
-          putString(ARG_PARAM2, param2)
+          putString(NAME, name)
+          putDoubleArray(GRADE, grade)
+          putDouble(AVG, avg)
         }
       }
+
   }
 }

@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,14 +34,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //setContentView(R.layout.activity_register)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
+
         setSupportActionBar(toolbar)
 
+        val transaction = supportFragmentManager.beginTransaction()
         drawer = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        studentScoreView = findViewById(R.id.students_score)
-        averageScoreView = findViewById(R.id.averageScoreView)
-        calculatorView = findViewById(R.id.calculatorView)
-        salaryView = findViewById(R.id.salaryView)
+
+        //studentScoreView = findViewById(R.id.students_score)
+        //averageScoreView = findViewById(R.id.averageScoreView)
+        //calculatorView = findViewById(R.id.calculatorView)
+        //salaryView = findViewById(R.id.salaryView)
+        transaction.replace(R.id.frameLayout, StudentsScore())
+        transaction.commit()
         drawer.addDrawerListener(toggle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -51,23 +57,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val activeFragment = supportFragmentManager.primaryNavigationFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.remove(activeFragment!!)
         when(item.itemId) {
             R.id.nav_exercise_one -> {
-                studentScoreView.isVisible = true
-                calculatorView.isVisible = false
-                salaryView.isVisible = false
-                averageScoreView.isVisible = false
+                transaction.replace(R.id.frameLayout, StudentsScore())
             }
             R.id.nav_exercise_two -> {
-                averageScoreView.isVisible = false
-                calculatorView.isVisible = false
-                salaryView.isVisible = true
-
+                transaction.replace(R.id.frameLayout, SalaryFragment())
             }
             R.id.nav_exercise_three -> {
-                averageScoreView.isVisible = false
-                calculatorView.isVisible = true
-                salaryView.isVisible = false
+                transaction.replace(R.id.frameLayout, CalculatorFragment())
             }
         }
 
