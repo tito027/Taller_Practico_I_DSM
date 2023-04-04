@@ -57,9 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val activeFragment = supportFragmentManager.primaryNavigationFragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.remove(activeFragment!!)
         when(item.itemId) {
             R.id.nav_exercise_one -> {
                 transaction.replace(R.id.frameLayout, StudentsScore())
@@ -71,6 +69,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.replace(R.id.frameLayout, CalculatorFragment())
             }
         }
+        transaction.commit()
 
         drawer.closeDrawer(GravityCompat.START)
         return true

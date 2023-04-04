@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.tallerpracticoi_dsm.R
 import com.example.tallerpracticoi_dsm.dto.StudentDTO
+import kotlin.math.roundToInt
 
 class StudentAdapter(private val context: Activity, var students: List<StudentDTO>): ArrayAdapter<StudentDTO?>(context, R.layout.fragment_average_score, students) {
 
@@ -20,7 +21,7 @@ class StudentAdapter(private val context: Activity, var students: List<StudentDT
     tvName.text = students[position].name
     val grades = students[position].grade!!.fold("") { acc, d -> "$acc$d , " }
     tvRates.text = grades.dropLast(2)
-    tvAvg.text = students[position].avg!!.toString()
+    tvAvg.text = (((students[position].avg ?: 0.0) * 100.0).roundToInt() / 100.0).toString()
     return rowview
   }
 

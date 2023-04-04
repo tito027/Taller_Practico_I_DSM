@@ -80,10 +80,6 @@ class AverageScoreFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    println("*********** PRUEBA MODIFIED **************8")
-    println(name)
-    println(grade)
-    println(avg)
     // Inicializando variables
     txtName = requireView().findViewById(R.id.txtName)
     txtRating1 = requireView().findViewById(R.id.txtRating1)
@@ -97,6 +93,25 @@ class AverageScoreFragment : Fragment() {
     btnCalculate = requireView().findViewById(R.id.btnCalculate)
 
     clear(true)
+
+    if(arguments != null) {
+      txtName.setText(name)
+      txtName.isEnabled = false
+      txtRating1.setText(grade?.get(0).toString())
+      txtRating2.setText(grade?.get(1).toString())
+      txtRating3.setText(grade?.get(2).toString())
+      txtRating4.setText(grade?.get(3).toString())
+      txtRating5.setText(grade?.get(4).toString())
+      val average = ((avg ?: 0.0) * 100.0).roundToInt() / 100.0 // Redondeandolo a 2 decimales
+      if (average >= 6) {
+        lblStatus.setTextColor(getResources().getColor(R.color.teal_700))
+        lblStatus.text = "$name has aprovado!!!"
+      } else {
+        lblStatus.setTextColor(getResources().getColor(androidx.appcompat.R.color.error_color_material_dark))
+        lblStatus.text = "$name has reprobado!!!"
+      }
+      lblAverage.text = "Promedio: $average"
+    }
 
     // Acción a ejecutar al presionar el botón limpiar
     btnClear.setOnClickListener {

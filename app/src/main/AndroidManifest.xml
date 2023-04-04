@@ -33,7 +33,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/SplashTheme">
         </activity>
     </application>
 
