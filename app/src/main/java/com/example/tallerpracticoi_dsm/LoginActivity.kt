@@ -37,11 +37,11 @@ class LoginActivity : AppCompatActivity() {
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
     }
     private fun loginUserAccount() {
-        progressBar?.setVisibility(View.VISIBLE)
+        progressBar?.visibility = View.VISIBLE
         val email: String
         val password: String
-        email = emailTV?.getText().toString()
-        password = passwordTV?.getText().toString()
+        email = emailTV?.text.toString()
+        password = passwordTV?.text.toString()
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG)
                 .show()
@@ -60,16 +60,16 @@ class LoginActivity : AppCompatActivity() {
                         "Login successful!",
                         Toast.LENGTH_LONG
                     ).show()
-                    progressBar?.setVisibility(View.GONE)
+                    progressBar?.visibility = View.GONE
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
-                        getApplicationContext(),
+                        applicationContext,
                         "Login failed! Please try again later",
                         Toast.LENGTH_LONG
                     ).show()
-                    progressBar?.setVisibility(View.GONE)
+                    progressBar?.visibility = View.GONE
                 }
             }
     }

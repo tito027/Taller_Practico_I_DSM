@@ -30,7 +30,7 @@ class Salary : AppCompatActivity() {
         else if(benefits > 895.25) rentToApply = arrayOf(.2, 60.0, 895.24)
         else if(benefits > 472) rentToApply = arrayOf(.1, 17.67, 472.0)
         descs[2] = rentToApply[1] + ((benefits - rentToApply[2]) * rentToApply[0])
-        val total = benefits - descs[2];
+        val total = benefits - descs[2]
         val labels = this.getLabels()
         descs.forEachIndexed { i, dsc -> labels[i].text = "$" + ((dsc * 100).roundToInt().toDouble() / 100).toString() }
         labels[3].text = "$" + ((descs.reduce { acc, dsc -> acc + dsc} * 100).roundToInt().toDouble() / 100).toString()

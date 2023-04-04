@@ -122,12 +122,12 @@ class AverageScoreFragment : Fragment() {
     btnCalculate.setOnClickListener{
       clear(true)
 
-      val name: String = txtName.getText().toString()
-      val rating1: Double? = txtRating1.getText().toString().toDoubleOrNull()
-      val rating2: Double? = txtRating2.getText().toString().toDoubleOrNull()
-      val rating3: Double? = txtRating3.getText().toString().toDoubleOrNull()
-      val rating4: Double? = txtRating4.getText().toString().toDoubleOrNull()
-      val rating5: Double? = txtRating5.getText().toString().toDoubleOrNull()
+      val name: String = txtName.text.toString()
+      val rating1: Double? = txtRating1.text.toString().toDoubleOrNull()
+      val rating2: Double? = txtRating2.text.toString().toDoubleOrNull()
+      val rating3: Double? = txtRating3.text.toString().toDoubleOrNull()
+      val rating4: Double? = txtRating4.text.toString().toDoubleOrNull()
+      val rating5: Double? = txtRating5.text.toString().toDoubleOrNull()
 
       if(
         name.isEmpty() ||
@@ -172,10 +172,10 @@ class AverageScoreFragment : Fragment() {
           Toast.makeText(activity, "Ha fallado guardar este registro, intente de nuevo!", Toast.LENGTH_SHORT).show()
         }
       if (average >= 6) {
-        lblStatus.setTextColor(getResources().getColor(R.color.teal_700))
+        lblStatus.setTextColor(resources.getColor(R.color.teal_700))
         lblStatus.text = "$name has aprovado!!!"
       } else {
-        lblStatus.setTextColor(getResources().getColor(androidx.appcompat.R.color.error_color_material_dark))
+        lblStatus.setTextColor(resources.getColor(androidx.appcompat.R.color.error_color_material_dark))
         lblStatus.text = "$name has reprobado!!!"
       }
       lblAverage.text = "Promedio: $average"

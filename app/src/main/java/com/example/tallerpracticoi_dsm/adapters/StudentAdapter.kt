@@ -16,8 +16,8 @@ class StudentAdapter(private val context: Activity, var students: List<StudentDT
     var rowview: View? = null
     rowview = view ?: layoutInflater.inflate(R.layout.student_layout, null)
     val tvName = rowview!!.findViewById<TextView>(R.id.txtResultName)
-    val tvRates = rowview!!.findViewById<TextView>(R.id.txtResultRate)
-    val tvAvg = rowview!!.findViewById<TextView>(R.id.txtAvg)
+    val tvRates = rowview.findViewById<TextView>(R.id.txtResultRate)
+    val tvAvg = rowview.findViewById<TextView>(R.id.txtAvg)
     tvName.text = students[position].name
     val grades = students[position].grade!!.fold("") { acc, d -> "$acc$d , " }
     tvRates.text = grades.dropLast(2)

@@ -70,10 +70,10 @@ class StudentsScore : Fragment() {
     // Definitions
     dataStudents = ArrayList<StudentDTO>()
 
-    listStudentsView!!.setOnItemClickListener { adapterView, view, i, l ->
+    listStudentsView.setOnItemClickListener { adapterView, view, i, l ->
       goToCreate(dataStudents!![i])
     }
-    listStudentsView!!.onItemLongClickListener =
+    listStudentsView.onItemLongClickListener =
       AdapterView.OnItemLongClickListener { adapterView, view, position, l ->
         val ad = AlertDialog.Builder(activity)
         ad.setMessage("Está seguro de eliminar el registro?").setTitle("Confirmación")
@@ -98,7 +98,7 @@ class StudentsScore : Fragment() {
           if(student != null) dataStudents!!.add(student)
         }
         val adapter = activity?.let { StudentAdapter(it, dataStudents!!) }
-        listStudentsView!!.adapter = adapter
+        listStudentsView.adapter = adapter
       }
 
       override fun onCancelled(error: DatabaseError) {}
